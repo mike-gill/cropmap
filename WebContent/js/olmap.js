@@ -9,10 +9,18 @@ proj4
 						+ ' +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs');
 var proj = 'EPSG:27700';
 
-var openSpaceOl3 = new OpenSpaceOl3('EB8FE9471221364EE0430B6CA40A6BDC',
+var openSpaceOl3 = new OpenSpaceOl3('C39E1DECE0E9A8B8E0405F0ACA60636A',
 		document.URL, OpenSpaceOl3.ALL_LAYERS);
 var map = new ol.Map({
-	layers : [ openSpaceOl3.getLayer() ],
+	layers : [ openSpaceOl3.getLayer(),
+	           new ol.layer.Image({
+	        	    source: new ol.source.ImageWMS({
+	        	      url: 'http://localhost:8080/geoserver/cropmap/wms',
+	        	      params: {'LAYERS': 'dem'},
+	        	      serverType: 'geoserver',
+	        	    }),
+	        	    opacity: 0.5
+	        	  }) ],
 	logo : false,
 	target : 'olmap',
 	controls : ol.control.defaults({
